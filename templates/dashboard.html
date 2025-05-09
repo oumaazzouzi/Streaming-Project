@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+{% block content %}
+<!-- Modal de bienvenue -->
+<div class="modal fade" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header">
+        <h5 class="modal-title" id="welcomeModalLabel">Bienvenue</h5>
+      </div>
+      <div class="modal-body">
+        Bonjour, <strong>{{ username }}</strong> !<br>
+        Bienvenue dans votre espace de streaming privé.
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>Series / Films</h2>
+<div class="row">
+  {% for i in range(3) %}
+  <div class="col-md-4 mb-4">
+    <div class="card bg-dark text-white">
+      <img src="{{ url_for('static', filename='images/tangled.jpeg') }}"
+           class="card-img-top clickable_image"
+           alt="Tangled"
+           onclick="logEvent('click_poster', 'Tangled'); showImageModal(this.src)">
+      <div class="card-body">
+        <h5 class="card-title">Story</h5>
+        <video controls width="100%" 
+       onplay="logEvent('play_video', 'Tangled')">
+          <source src="{{ url_for('static', filename='videos/The Story of Rapunzel  Tangled  Disney Princess.mp4') }}" type="video/mp4">
+          Votre navigateur ne supporte pas la lecture vidéo.
+        </video>
+
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<div class="row">
+  {% for i in range(3) %}
+  <div class="col-md-4 mb-4">
+    <div class="card bg-dark text-white">
+      <img src="{{ url_for('static', filename='images/woods.jpg') }}"
+           class="card-img-top clickable_image"
+           alt="Woods"
+           onclick="logEvent('click_poster', 'Into The Woods'); showImageModal(this.src)">
+      <div class="card-body">
+        <h5 class="card-title">Story</h5>
+        <video controls width="100%" 
+       onplay="logEvent('play_video', 'Into The Woods')">
+          <source src="{{ url_for('static', filename='videos/Disneys Into The Woods - Official Full Trailer.mp4') }}" type="video/mp4">
+          Votre navigateur ne supporte pas la lecture vidéo.
+        </video>
+
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<!-- ✅ Modal image unique en dehors de tout -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-dark">
+      <div class="modal-body p-0">
+        <img id="modalImage" src="" alt="Image agrandie" class="img-fluid w-100">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const LOGGED_IN_USER = "{{ username | safe }}";
+  localStorage.setItem('user_id', LOGGED_IN_USER);
+  {% if show_welcome %}
+  document.addEventListener('DOMContentLoaded', function () {
+    var welcomeModal = new bootstrap.Modal(document.getElementById('welcomeModal'));
+    welcomeModal.show();
+  });
+  {% endif %}
+
+  // ✅ Fonction bien fermée
+  function showImageModal(src) {
+    document.getElementById('modalImage').src = src;
+    const imageModal = new bootstrap.Modal(document.getElementById('imageModal'));
+    imageModal.show();
+  }
+</script>
+{% endblock %}
