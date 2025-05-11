@@ -1,4 +1,4 @@
-🎬 ## Mon Site de Streaming - Projet Dashboard + DevOps
+# 🎬 Mon Site de Streaming - Projet Dashboard + DevOps
 
 Une application de streaming pédagogique développée avec Flask.  
 Ce projet inclut un dashboard interactif, une base de données SQLite, et un système d'authentification utilisateur.
